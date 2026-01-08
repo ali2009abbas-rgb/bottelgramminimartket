@@ -1,12 +1,8 @@
 services:
   - type: web
-    name: shop-telegram-bot # اسم الخدمة على Render (تقدر تغيّره)
-    env: php
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan migrate --force
-      php artisan db:seed --force
-    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    name: shop-telegram-bot
+    env: docker # ✅ مهم: نحدد أن الخدمة مبنية من Dockerfile
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV
         value: production
@@ -17,7 +13,7 @@ services:
       - key: APP_URL
         value: https://shop-telegram-bot.onrender.com
       - key: TELEGRAM_BOT_TOKEN
-        sync: false # ⚠️ ضع التوكن في لوحة التحكم Render وليس في الكود
+        sync: false
       - key: TELEGRAM_WEBHOOK_URL
         value: https://shop-telegram-bot.onrender.com/webhook
       - key: DB_CONNECTION
