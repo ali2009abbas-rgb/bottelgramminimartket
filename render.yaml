@@ -7,13 +7,13 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        generateValue: true
+        generateValue: true # Render يولّد قيمة تلقائيًا إذا ما أضفتها يدوياً
       - key: APP_DEBUG
         value: false
       - key: APP_URL
         value: https://shop-telegram-bot.onrender.com
       - key: TELEGRAM_BOT_TOKEN
-        sync: false
+        sync: false # ⚠️ لازم تضيف التوكن يدوياً في لوحة التحكم Render
       - key: TELEGRAM_WEBHOOK_URL
         value: https://shop-telegram-bot.onrender.com/webhook
       - key: DB_CONNECTION
