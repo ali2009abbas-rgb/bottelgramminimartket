@@ -1,8 +1,13 @@
 services:
   - type: web
     name: shop-telegram-bot
-    env: docker # ✅ مهم: نحدد أن الخدمة مبنية من Dockerfile
+    env: docker # ✅ مهم: الخدمة مبنية من Dockerfile
     dockerfilePath: ./Dockerfile
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan migrate --force
+      php artisan db:seed --force
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
       - key: APP_ENV
         value: production

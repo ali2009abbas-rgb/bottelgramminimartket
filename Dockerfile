@@ -20,8 +20,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # تثبيت مكتبات Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# تنفيذ المهاجرات والـ seeders (اختياري، ممكن تحذف السطر الأخير إذا ما بدك يتكرر)
-RUN php artisan migrate --force && php artisan db:seed --force
 
 # تشغيل السيرفر Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
