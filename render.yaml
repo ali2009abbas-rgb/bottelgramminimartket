@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: shop-telegram-bot # اسم الخدمة على Render (تقدر تغيّره)
+    env: php
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan migrate --force
+      php artisan db:seed --force
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://shop-telegram-bot.onrender.com
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false # ⚠️ ضع التوكن في لوحة التحكم Render وليس في الكود
+      - key: TELEGRAM_WEBHOOK_URL
+        value: https://shop-telegram-bot.onrender.com/webhook
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: shop-bot-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: shop-bot-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: shop-bot-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: shop-bot-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: shop-bot-db
+          property: password
+
+databases:
+  - name: shop-bot-db
+    databaseName: shop_bot
+    user: shop_user

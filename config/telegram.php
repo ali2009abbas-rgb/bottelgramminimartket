@@ -37,9 +37,10 @@ return [
     */
     'bots' => [
         'mybot' => [
-            'token' => env('TELEGRAM_BOT_TOKEN', '8315603595:AAEiuHiqN8PGjwxxGHXzbc3xII8rR4LQ_ZI'),
-            'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
-            'webhook_url' => env('TELEGRAM_WEBHOOK_URL', 'https://nonallelic-receptively-sonja.ngrok-free.dev/8315603595:AAEiuHiqN8PGjwxxGHXzbc3xII8rR4LQ_ZI/webhook'),
+
+            'token' => env('TELEGRAM_BOT_TOKEN'), // ✅ بدون كتابة التوكن مباشرة 
+            'certificate_path' => env('TELEGRAM_CERTIFICATE_PATH'), 
+            'webhook_url' => env('TELEGRAM_WEBHOOK_URL'),
             /*
              * @see https://core.telegram.org/bots/api#update
              */
