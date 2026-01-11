@@ -4,35 +4,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Keyboard\Keyboard;
+use App\Http\Controllers\WebhookController;
 
-Route::post('/webhook', function () {
-    try {
-
-        Log::info("UPDATE:", request()->all());
-
-        $update = request()->all();
-
-        // أوامر نصية مثل /start
-        if (isset($update['message'])) {
-            $chatId = $update['message']['chat']['id'];
-            $text   = $update['message']['text'] ?? '';
-
-            if ($text === '/start') {
-                Telegram::sendMessage([
-                    'chat_id' => $chatId,
-                    'text'    => "البوت شغال ✔️",
-                ]);
-            }
-        }
-
-        return response('ok', 200);
-
-    } catch (\Exception $e) {
-
-        Log::error("TELEGRAM ERROR: " . $e->getMessage());
-        return response('error', 500);
-    }
-});
+Route::post('/webhook', [WebhookController::class, 'handle'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
 
 
 
